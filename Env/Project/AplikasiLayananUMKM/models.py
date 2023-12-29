@@ -27,6 +27,34 @@ class Wang(BaseMenu):
 class EsBuah(BaseMenu):
     pass
 
+class Bakwan(models.Model):
+    nama_menu = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+    
+    def __str__(self):
+        return f"{self.nama_menu}"
+
+class Batagor(models.Model):
+    nama_menu = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+    
+    def __str__(self):
+        return f"{self.nama_menu}"
+
+class Sate(BaseMenu):
+    def __str__(self):
+        return f"{self.gambar}"
+    @property
+    def _harga(self):
+        return self._harga
+
+    def save(self, *args, **kwargs):
+        if self._harga > 100.000:
+            self._harga = self.__class__.objects.get(pk=self.pk)._harga
+        super().save(*args, **kwargs)
+
+
+
 #2 Encapsulation 2 (akses cuma di class ini)
 class Saguku(BaseMenu):
     @property
